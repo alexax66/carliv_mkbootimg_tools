@@ -130,6 +130,7 @@ int usage(void)
             "       [ --base <address> ]\n"
             "       [ --pagesize <pagesize> ]\n"
             "       [ --dt <filename> ]\n"
+            "       [ --signature <filename> ]\n"
             "       [ --kernel_offset <address> ]\n"
             "       [ --ramdisk_offset <address> ]\n"
             "       [ --second_offset <address> ]\n"
@@ -188,6 +189,8 @@ int main(int argc, char **argv)
     char *board = "";
     char *dt_fn = 0;
     void *dt_data = 0;
+    char *sig_fn = 0;
+    void *sig_data = 0;
     uint32_t pagesize = 2048;
     FILE *fd;
     SHA_CTX ctx;
@@ -250,6 +253,8 @@ int main(int argc, char **argv)
                 }
             } else if(!strcmp(arg, "--dt")) {
                 dt_fn = val;
+	    } else if(!strcmp(arg, "--signature")) {
+		sig_fn = val;
             } else {
                 return usage();
             }
@@ -366,6 +371,14 @@ int main(int argc, char **argv)
         }
     }
 
+    if(sig_fn) {
+        sig_data = load_file(sig_fn, 0);
+        if (sig_data == 0) {
+            fprintf(stderr,"error: could not load signature '%s'\n", sig_fn);
+            return 1;
+        }
+    }
+
     /* put a hash of the contents in the header so boot images can be
      * differentiated based on their first 2k.
      */
@@ -414,6 +427,12 @@ int main(int argc, char **argv)
         if(fwrite(dt_data, 1, hdr.dt_size, fd) != (ssize_t) hdr.dt_size) goto fail;
         if(write_padding(fd, pagesize, hdr.dt_size)) goto fail;
     }
+
+    if(sig_data) {
+        if(fwrite(sig_data, 1, 256, fd) != 256) goto fail;
+        if(write_padding(fd, 256, 256)) goto fail;
+    }
+
     printf("\n'%s' successfully repacked\n", basename(bootimg));
     return 0;
 

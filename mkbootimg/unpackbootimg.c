@@ -316,7 +316,21 @@ int main(int argc, char** argv)
 	    fclose(d);
         printf(" >>  device_tree written to '%s' (%d bytes)\n\n", tmp, header.dt_size);
     }
-    
+
+    total_read += read_padding(f, header.dt_size, pagesize);
+
+    if(header.dt_size != 0) {
+		sprintf(tmp, "%s/%s", directory, basename(filename));
+		strcat(tmp, "-signature");
+		FILE *fsig = fopen(tmp, "wb");
+		byte* bsig = (byte*)malloc(256);
+		//printf("Reading signature...\n");
+		fread(bsig, 256, 1, f);
+		total_read += 256;
+		fwrite(bsig, 256, 1, fsig);
+		fclose(fsig);
+    }
+
     fclose(f);
 
     return 0;

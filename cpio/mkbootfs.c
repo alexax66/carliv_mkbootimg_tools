@@ -12,7 +12,7 @@
 #include <stdarg.h>
 #include <fcntl.h>
 
-#include "private/android_filesystem_config.h"
+#include "../include/private/android_filesystem_config.h"
 
 /* NOTES
 **
@@ -79,7 +79,6 @@ static void fix_stat(const char *path, struct stat *s)
     } else {
         // Use the compiled-in fs_config() function.
         unsigned st_mode = s->st_mode;
-        fs_config(path, S_ISDIR(s->st_mode), &s->st_uid, &s->st_gid, &st_mode, &capabilities);
         s->st_mode = (typeof(s->st_mode)) st_mode;
     }
 }

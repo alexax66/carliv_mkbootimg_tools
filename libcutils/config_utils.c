@@ -20,8 +20,8 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-#include <cutils/config_utils.h>
-#include <cutils/misc.h>
+#include "../include/cutils/config_utils.h"
+#include "../include/cutils/misc.h"
 
 cnode* config_node(const char *name, const char *value)
 {

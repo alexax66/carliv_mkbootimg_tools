@@ -3,17 +3,13 @@
 #
 MAKEFLAGS += --silent
 OUT = ../out
-CC=gcc
-ifeq ($(target),32)
-CFLAGS = -m32
-CFLAGS += -std=c99 -pipe
-else
+CC=gcc10
 CFLAGS = -std=c99 -pipe
-endif
+
 RM = rm -f
 CP = cp
 
-all:mkbootfs
+all: mkbootfs
 
 mkbootfs:
 	$(CC) $@.c -o $@

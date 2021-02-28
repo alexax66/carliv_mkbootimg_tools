@@ -27,11 +27,11 @@
 
 // Optimized for minimal code size.
 
-#include "mincrypt/sha256.h"
-
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
+
+#include "../include/mincrypt/sha256.h"
 
 #define ror(value, bits) (((value) >> (bits)) | ((value) << (32 - (bits))))
 #define shr(value, bits) ((value) >> (bits))

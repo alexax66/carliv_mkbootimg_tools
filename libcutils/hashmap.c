@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-#include <cutils/hashmap.h>
 #include <assert.h>
 #include <errno.h>
-#include <cutils/threads.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
 #include <sys/types.h>
+
+#include "../include/cutils/hashmap.h"
+#include "../include/cutils/threads.h"
 
 typedef struct Entry Entry;
 struct Entry {

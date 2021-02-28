@@ -4,15 +4,10 @@
 MAKEFLAGS += --silent
 IDIR = -I../include
 OUT = ../out
-CC=gcc
-ifeq ($(target),32)
-CFLAGS = -m32
-CFLAGS += -std=c99 -pipe
-LIBS= -m32 ../libcutils/libcutils.a ../libmincrypt/libmincrypt.a
-else
+CC=gcc10
 CFLAGS = -std=c99 -pipe
 LIBS= ../libcutils/libcutils.a ../libmincrypt/libmincrypt.a
-endif
+
 RM = rm -f
 CP = cp
 

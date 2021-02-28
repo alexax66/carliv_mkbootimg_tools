@@ -34,8 +34,9 @@
 #include <sys/types.h>
 
 //#include <log/log.h>
-#include <private/android_filesystem_config.h>
-#include <utils/Compat.h>
+#include "../include/private/android_filesystem_capability.h"
+#include "../include/private/android_filesystem_config.h"
+#include "../include//utils/Compat.h"
 
 #ifndef O_BINARY
 #define O_BINARY 0

@@ -27,11 +27,11 @@
 
 // Optimized for minimal code size.
 
-#include "mincrypt/sha.h"
-
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
+
+#include "../include/mincrypt/sha.h"
 
 #define rol(bits, value) (((value) << (bits)) | ((value) >> (32 - (bits))))
 
